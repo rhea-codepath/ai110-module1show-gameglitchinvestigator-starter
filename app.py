@@ -50,6 +50,8 @@ if "history" not in st.session_state:
 
 st.subheader("Make a guess")
 
+# FIX: Copilot refactor revealed hardcoded 1–100 range in UI.
+# Updated to dynamically reflect difficulty bounds.
 st.info(
     f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -76,7 +78,9 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
-    # FIXME: Logic breaks here (starter) — new game ignored difficulty + partial reset.
+    # FIX: Copilot Agent originally regenerated 1–100 regardless of difficulty.
+    # After reviewing the diff, we updated this to respect the selected range
+    # and fully reset session state.
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
     st.session_state.score = 0

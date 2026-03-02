@@ -3,6 +3,8 @@ from __future__ import annotations
 
 
 def get_range_for_difficulty(difficulty: str) -> tuple[int, int]:
+    # FIX: Refactored from app.py into logic_utils.py using Copilot Agent mode
+    # to separate UI from game logic and make it testable.
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
@@ -13,6 +15,8 @@ def get_range_for_difficulty(difficulty: str) -> tuple[int, int]:
 
 
 def parse_guess(raw: str):
+    # FIX: Moved parsing logic out of Streamlit UI layer with Copilot assistance
+    # so input validation can be tested independently.
     if raw is None or raw == "":
         return False, None, "Enter a guess."
 
@@ -30,21 +34,21 @@ def parse_guess(raw: str):
 def check_guess(guess, secret):
     """
     Compare guess to secret and return (outcome, message).
-    outcome: "Win", "Too High", "Too Low"
     """
     if guess == secret:
         return "Win", "🎉 Correct!"
 
-    # FIXME: Logic breaks here (starter) — directions were reversed.
-    # Correct:
-    # - guess > secret => Too High => go LOWER
-    # - guess < secret => Too Low  => go HIGHER
+    # FIX: Copilot originally preserved reversed hint logic.
+    # After reviewing the diff, we corrected direction:
+    # guess > secret -> Too High -> tell user to go LOWER
+    # guess < secret -> Too Low  -> tell user to go HIGHER
     try:
         if guess > secret:
             return "Too High", "📉 Go LOWER!"
         return "Too Low", "📈 Go HIGHER!"
     except TypeError:
-        # normalize types if possible
+        # FIX: Normalized types instead of relying on string comparison
+        # (improves robustness discovered during review of Agent changes).
         try:
             g = int(guess)
             s = int(secret)
@@ -60,6 +64,8 @@ def check_guess(guess, secret):
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int) -> int:
+    # FIX: Moved scoring logic into logic_utils.py using Copilot Agent
+    # to isolate business rules from UI state.
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
         if points < 10:
