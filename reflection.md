@@ -8,6 +8,15 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
 
+Hints were backwards.
+I expected the game to tell me to guess lower when I was too high and higher when I was too low. Instead, it flipped the directions (e.g., “Too High” but “Go HIGHER!”), which made it impossible to logically narrow down the number.
+
+Difficulty didn’t match the range shown.
+I expected the number range to change consistently based on Easy/Normal/Hard. But the main UI always said “Guess a number between 1 and 100,” even when the difficulty range was different.
+
+New Game didn’t fully reset correctly.
+I expected “New Game” to reset everything and generate a number within the selected difficulty. Instead, it always picked 1–100 and didn’t fully reset attempts and state consistently.
+
 ---
 
 ## 2. How did you use AI as a teammate?
