@@ -25,6 +25,12 @@ I expected “New Game” to reset everything and generate a number within the s
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
+I used GitHub Copilot (including Agent mode) to help refactor logic and identify bugs in the game.
+
+One example of a correct AI suggestion was when Copilot helped refactor the game logic (check_guess, parse_guess, etc.) out of app.py into logic_utils.py. It preserved the function structure and made the logic independently testable, which aligned with the project goal of separating UI from business logic. I verified this by running pytest after the refactor and confirming that the logic worked without relying on Streamlit state.
+
+One example of an incorrect or misleading AI suggestion was when Copilot initially preserved the reversed hint logic in check_guess. The code still returned "Go HIGHER!" when the guess was too high. After reviewing the diff manually and running targeted pytest cases, I realized the direction was still wrong and corrected it so that "Too High" now tells the user to go lower (and vice versa). This reinforced that even when AI refactors code correctly structurally, the logic still needs careful human review.
+
 ---
 
 ## 3. Debugging and testing your fixes
