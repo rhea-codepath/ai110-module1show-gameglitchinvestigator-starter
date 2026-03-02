@@ -54,6 +54,12 @@ AI helped me design the regression test by suggesting that I assert on both the 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 - What change did you make that finally gave the game a stable secret number?
 
+The secret number kept changing because Streamlit reruns the entire script on every interaction. If a value isn’t stored in st.session_state, it gets recreated each rerun.
+
+I’d explain reruns like this: every button click re-executes the whole file from top to bottom. Session state is just a dictionary that survives those reruns so your data doesn’t reset.
+
+The key fix was only initializing the secret number if it didn’t already exist in st.session_state, so it wasn’t regenerated on every interaction.
+
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -62,3 +68,9 @@ AI helped me design the regression test by suggesting that I assert on both the 
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+I want to reuse the habit of writing a regression test right after fixing a bug. It makes sure the issue doesn’t come back later.
+
+Next time, I would be more careful reviewing AI-generated logic instead of assuming structural refactors also fix behavioral bugs.
+
+This project made me realize AI-generated code can look correct and still contain subtle logic errors, so human review and testing are essential.
