@@ -35,15 +35,19 @@ def check_guess(guess, secret):
 
     try:
         if guess > secret:
+            # FIXME: Logic breaks here — if guess is too high, hint should say go LOWER (currently says HIGHER)
             return "Too High", "📈 Go HIGHER!"
         else:
+            # FIXME: Logic breaks here — if guess is too low, hint should say go HIGHER (currently says LOWER)
             return "Too Low", "📉 Go LOWER!"
     except TypeError:
         g = str(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
+            # FIXME: Same reversed-hint bug in TypeError fallback branch
             return "Too High", "📈 Go HIGHER!"
+        # FIXME: Same reversed-hint bug in TypeError fallback branch
         return "Too Low", "📉 Go LOWER!"
 
 
@@ -133,7 +137,9 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
+    # FIXME: Logic breaks here — new game ignores selected difficulty range (should use low, high not 1..100)
     st.session_state.secret = random.randint(1, 100)
+    # FIXME: Reset is inconsistent (attempts starts at 1 elsewhere; also should reset status/history/score)
     st.success("New game started.")
     st.rerun()
 
