@@ -40,6 +40,12 @@ One example of an incorrect or misleading AI suggestion was when Copilot initial
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+I decided a bug was truly fixed only after verifying both behavior in the UI and behavior in isolated logic tests. For example, after fixing the reversed hint bug, I didn’t just rely on the game “feeling right” — I confirmed that the output of check_guess matched the expected outcome and message.
+
+One test I ran using pytest specifically targeted the reversed hint bug. I wrote a regression test that checked that when the guess is higher than the secret, the outcome is "Too High" and the message contains "LOWER" (and not "HIGHER"). Before the fix, this test would have failed because the message directions were flipped. After correcting the logic, the test passed, which confirmed that the bug was actually resolved at the logic level.
+
+AI helped me design the regression test by suggesting that I assert on both the outcome and the message content, not just the outcome string. That pushed me to think about testing behavior more precisely. However, I still had to review and adjust the tests to match the actual return type of check_guess (a tuple), which reinforced that tests also need human verification.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
